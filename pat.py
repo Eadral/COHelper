@@ -6,7 +6,6 @@ import shutil
 def pat(filename):
     os.system("@echo off")
 
-    os.system("rm mars_output.txt")
     os.system("rm isim_output.txt")
 
     os.system("call mars_code.cmd {}".format(filename))
@@ -37,4 +36,7 @@ def compare(fileA, fileB):
 
 
 if __name__ == "__main__":
-    print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\auto_test_cases_1\auto_test_2018-12-02-10-03-51.asm"))
+    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\control_test_cases_1\sb.asm"))
+    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\auto_test_cases_1\auto_test_2018-12-03-10-48-57.asm"))
+
+    print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\weak.asm"))
