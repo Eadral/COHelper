@@ -36,7 +36,8 @@ def compare(fileA, fileB):
 
 
 if __name__ == "__main__":
-    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\control_test_cases_1\sb.asm"))
-    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\auto_test_cases_1\auto_test_2018-12-03-10-48-57.asm"))
+    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\control_test_cases_1\xalu.asm"))
+    print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\control_test_cases_2\xalu.asm"))
+    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\auto_test_cases_1\auto_test_2018-12-02-22-56-39.asm"))
 
-    print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\weak.asm"))
+    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\weak.asm"))

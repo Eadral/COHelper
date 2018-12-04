@@ -5,12 +5,12 @@ import os
 from pat import pat
 
 n_reg = 5
-n_line = 100
+n_line = 500
 n_address = 10
 num_range = 10
 
-
-instrs = [
+# MIPS-C
+cal_r = [
     # "add $r, $r, $r",
     "addu $r, $r, $r",
     # "sub $r, $r, $r",
@@ -24,7 +24,8 @@ instrs = [
     "nor $r, $r, $r",
     "slt $r, $r, $r",
     "sltu $r, $r, $r",
-
+]
+load_save = [
     "lw $m, *($0)",
     "lh $m, *($0)",
     "lhu $m, *($0)",
@@ -33,7 +34,8 @@ instrs = [
     "sw $m, *($0)",
     "sb $m, *($0)",
     "sh $m, *($0)",
-
+]
+cal_i = [
     # "addi $i, $i, *",
     "addiu $i, $i, *",
     "andi $i, $i, *",
@@ -42,11 +44,13 @@ instrs = [
     "lui $i, *",
     "slti $i, $i, *",
     "sltiu $i, $i, *",
-
+]
+shift = [
     "sll $w, $w, *",
     "srl $w, $w, *",
     "sra $w, $w, *",
-
+]
+xalu = [
     "mult $x, $x",
     "multu $x, $x",
     "div $x, $x",
@@ -55,19 +59,30 @@ instrs = [
     "mflo $x",
     "mthi $x",
     "mtlo $x",
-
+]
+branch = [
     "beq $b, $b, label@",
     "bne $b, $b, label@",
     "blez $b, label@",
     "bgtz $b, label@",
     "bltz $b, label@",
     "bgez $b, label@",
-
+]
+jump = [
     "j label@",
     "jal label@",
     "jalr $j, $j",
     "jr $j",
 ]
+
+# Special
+special = [
+    "movz $r, $r, $r",
+    "madd $x, $x",
+    "maddu $x, $x",
+]
+
+instrs = cal_r + load_save + cal_i + shift + xalu + branch + jump + special*10
 
 registers = ["$0", "$s1", "$s2", "$s3", "$s4", "$s5", "$s6", "$s7", ]
 address = ["$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7", "$t8", "$t9", ]
@@ -105,7 +120,7 @@ def generate_address():
     ]
     program = []
     for i in range(n_address-1):
-        program.append(init[i].replace("*", "label{}".format(random.randint(10*(i+1), 10*(i+2)))))
+        program.append(init[i].replace("*", "label{}".format(random.randint(50*(i+1), 50*(i+2)))))
     program.append(init[n_address-1].replace("*", "label{}".format(n_line)))
     return program
 
@@ -115,7 +130,7 @@ def choice_reg(num_reg=n_reg):
 
 
 def choice_address(i):
-    return "$t{}".format(i // 10)
+    return "$t{}".format(i // 50)
 
 
 def replace(instr, template, target):
@@ -169,11 +184,13 @@ def generate_w(instr):
     instr = replace(instr, "*", random.randint(0, 0b11111))
     return instr
 
+
 def choice_label(i):
     label = random.randint(i+1, i+10)
-    if label > 100:
-        label = 100
+    if label > n_line:
+        label = n_line
     return label
+
 
 def generate_b(instr, i):
     instr = copy(instr)
@@ -258,6 +275,7 @@ def autotest(dir, times=0xffffffff):
 
 
 if __name__ == "__main__":
+    # print(len(instrs))
     # print(generate())
     print(autotest(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\auto_test_cases_1"))
 
