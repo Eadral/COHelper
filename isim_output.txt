@@ -1,4 +1,3 @@
-INFO: There is another simulation running in the same directory. Using database file name isim1.wdb.
 ISim P.20131013 (signature 0x7708f090)
 ----------------------------------------------------------------------
 WARNING:Security:42 - Your software subscription period has lapsed. Your current version of Xilinx tools will continue to function, but you no longer qualify for Xilinx software updates or new releases.
@@ -10,15 +9,15 @@ Time resolution is 1 ps
 Warning: ntrace command is deprecated. Please use the wave log or the wave add command is as an alternative.
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-                  55@00003000: $ 1 <= 49230000
-                  65@00003004: $ 8 <= 49237485
-                  75@00003008: $ 1 <= f9230000
-                  85@0000300c: $ 9 <= f9237485
-                  95@00003010: $10 <= 000000e7
-                 105@00003014: $11 <= 000000f5
-                 255@00003020: $16 <= fe0a28f3
-                 275@00003024: $17 <= 5b66cd19
-                 365@0000302c: $16 <= fe0a28ed
-                 385@00003030: $17 <= 2a64f11c
-                 475@00003038: $16 <= fe0a28ed
-                 495@0000303c: $17 <= 2a65ce2f
+                  55@00003000: $ 8 <= 0000aabb
+                  65@00003004: $ 9 <= 0000ccdd
+                  65@00003008: *00000000 <= 0000aabb
+                  75@0000300c: *00000000 <= ccddaabb
+                  95@00003010: $16 <= ccddaabb
+                 105@00003014: $ 1 <= aabb0000
+                 115@00003018: $ 8 <= aabbccdd
+                 115@0000301c: *00000004 <= aabbccdd
+                 135@00003020: $17 <= ffffccdd
+                 145@00003024: $18 <= ffffaabb
+                 155@00003028: $19 <= 0000ccdd
+                 165@0000302c: $20 <= 0000aabb

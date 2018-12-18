@@ -11,9 +11,9 @@ num_range = 10
 
 # MIPS-C
 cal_r = [
-    # "add $r, $r, $r",
+    "add $r, $r, $r",
     "addu $r, $r, $r",
-    # "sub $r, $r, $r",
+    "sub $r, $r, $r",
     "subu $r, $r, $r",
     "sllv $r, $r, $r",
     "srlv $r, $r, $r",
@@ -36,7 +36,7 @@ load_save = [
     "sh $m, *($0)",
 ]
 cal_i = [
-    # "addi $i, $i, *",
+    "addi $i, $i, *",
     "addiu $i, $i, *",
     "andi $i, $i, *",
     "ori $i, $i, *",
@@ -53,8 +53,8 @@ shift = [
 xalu = [
     "mult $x, $x",
     "multu $x, $x",
-    "div $x, $x",
-    "divu $x, $x",
+    # "div $x, $x",
+    # "divu $x, $x",
     "mfhi $x",
     "mflo $x",
     "mthi $x",
@@ -80,9 +80,26 @@ special = [
     "movz $r, $r, $r",
     "madd $x, $x",
     "maddu $x, $x",
+    "bgezal $b, label@",
+    "rotr $w, $w, *",
 ]
 
-instrs = cal_r + load_save + cal_i + shift + xalu + branch + jump + special*10
+P5 = [
+    "addu $r, $r, $r",
+    "subu $r, $r, $r",
+    "ori $i, $i, *",
+    "lw $m, *($0)",
+    "sw $m, *($0)",
+    "beq $b, $b, label@",
+    "lui $i, *",
+    "j label@",
+    "jal label@",
+    "jr $j",
+]
+
+instrs = cal_r + load_save + cal_i + shift + xalu + branch + jump
+# instrs = cal_r + load_save*3 + cal_i + branch
+# instrs = P5
 
 registers = ["$0", "$s1", "$s2", "$s3", "$s4", "$s5", "$s6", "$s7", ]
 address = ["$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7", "$t8", "$t9", ]
@@ -147,7 +164,7 @@ def generate_r(instr):
 def generate_m(instr):
     instr = copy(instr)
     instr = replace(instr, "$m", choice_reg())
-    if instr.find("b") >= 0:
+    if instr.find("b") >= 0 or instr.find("wl") >= 0 or instr.find("wr") >= 0:
         instr = replace(instr, "*", random.randint(0, num_range))
     elif instr.find("h") >= 0:
         instr = replace(instr, "*", random.randint(0, num_range) >> 1 << 1)
@@ -164,6 +181,8 @@ def generate_i(instr):
     instr = replace(instr, "$i", choice_reg())
     if instr.find("lui") >= 0:
         instr = replace(instr, "*", random.randint(0, 0xff))
+    elif instr.find("ori") >= 0:
+        instr = replace(instr, "*", random.randint(0, num_range))
     else:
         instr = replace(instr, "*", random.randint(-num_range, num_range))
     return instr
@@ -277,5 +296,5 @@ def autotest(dir, times=0xffffffff):
 if __name__ == "__main__":
     # print(len(instrs))
     # print(generate())
-    print(autotest(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\auto_test_cases_1"))
+    print(autotest(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\auto_test_cases_2"))
 
