@@ -3,6 +3,7 @@ from copy import copy
 import datetime
 import os
 from pat import pat
+from config import cfg
 
 n_reg = 5
 n_line = 500
@@ -11,9 +12,7 @@ num_range = 10
 
 # MIPS-C
 cal_r = [
-    "add $r, $r, $r",
     "addu $r, $r, $r",
-    "sub $r, $r, $r",
     "subu $r, $r, $r",
     "sllv $r, $r, $r",
     "srlv $r, $r, $r",
@@ -36,7 +35,6 @@ load_save = [
     "sh $m, *($0)",
 ]
 cal_i = [
-    "addi $i, $i, *",
     "addiu $i, $i, *",
     "andi $i, $i, *",
     "ori $i, $i, *",
@@ -53,8 +51,8 @@ shift = [
 xalu = [
     "mult $x, $x",
     "multu $x, $x",
-    # "div $x, $x",
-    # "divu $x, $x",
+    "div $x, $x",
+    "divu $x, $x",
     "mfhi $x",
     "mflo $x",
     "mthi $x",
@@ -84,6 +82,13 @@ special = [
     "rotr $w, $w, *",
 ]
 
+exception = [
+    "add $r, $r, $r",
+    "sub $r, $r, $r",
+    "addi $i, $i, *",
+
+]
+
 P5 = [
     "addu $r, $r, $r",
     "subu $r, $r, $r",
@@ -96,8 +101,10 @@ P5 = [
     "jal label@",
     "jr $j",
 ]
+P6 = cal_r + load_save + cal_i + shift + xalu + branch + jump
+P7 = cal_r + load_save + cal_i + shift + xalu + branch + jump + exception*5
 
-instrs = cal_r + load_save + cal_i + shift + xalu + branch + jump
+instrs = P6
 # instrs = cal_r + load_save*3 + cal_i + branch
 # instrs = P5
 
@@ -264,7 +271,9 @@ def choice_instr(last_instr):
 
 
 def generate():
-    program = []
+    program = [
+        "li $sp, 0x2ffc",
+    ]
     program += generate_init()
     program += generate_address()
     last_instr = ""
@@ -273,12 +282,15 @@ def generate():
         program.append("label{}: ".format(i) + generate_statement(instr, i))
         last_instr = instr
     program.append("label{}:".format(n_line))
+
     return program
 
 
 def write_file(program, file_dir):
     program = list(map(lambda x: x + "\n", program))
     open(file_dir, "w").writelines(program)
+    if cfg.handler_file:
+        os.system("cat {} >> {}".format(cfg.handler_file, file_dir))
 
 
 def autotest(dir, times=0xffffffff):
@@ -296,5 +308,5 @@ def autotest(dir, times=0xffffffff):
 if __name__ == "__main__":
     # print(len(instrs))
     # print(generate())
-    print(autotest(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\auto_test_cases_2"))
+    print(autotest(r"C:\Users\Eadral\Desktop\学习\6系\计组\P7\auto_test_cases"))
 
