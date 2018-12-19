@@ -38,10 +38,11 @@ def compare(fileA, fileB):
 
 
 if __name__ == "__main__":
-    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P7\exception_test_cases\add.asm"))
-    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\control_test_cases_1\sh-lh-lhu.asm"))
-    print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\control_test_cases_1\lw-sw.asm"))
+    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P7\exception_test_cases\slot.asm"))
+    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\control_test_cases_1\jr-jal.asm"))
+    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\control_test_cases_1\lw-sw.asm"))
     # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\test.asm"))
-    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\auto_test_cases_2\auto_test_2018-12-16-22-03-22.asm"))
+    # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P7\modified_auto_test_cases\auto_test_2018-12-18-23-34-27.asm"))
+    print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P7\auto_test_cases\auto_test_2018-12-18-23-34-27.asm"))
 
     # print(pat(r"C:\Users\Eadral\Desktop\学习\6系\计组\P7\P7test\hansbug\3\2.asm"))

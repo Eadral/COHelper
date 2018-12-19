@@ -24,4 +24,4 @@ def pat_dirs(dirs):
 
 
 if __name__ == "__main__":
-    print(pat_dir(r"C:\Users\Eadral\Desktop\学习\6系\计组\P5_P6\modified_auto_test_cases_1"))
+    print(pat_dir(r"C:\Users\Eadral\Desktop\学习\6系\计组\P7\auto_test_cases"))

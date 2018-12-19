@@ -102,9 +102,9 @@ P5 = [
     "jr $j",
 ]
 P6 = cal_r + load_save + cal_i + shift + xalu + branch + jump
-P7 = cal_r + load_save + cal_i + shift + xalu + branch + jump + exception*5
+P7 = cal_r + load_save + cal_i + shift + xalu + branch + exception*10 #+ jump
 
-instrs = P6
+instrs = P7
 # instrs = cal_r + load_save*3 + cal_i + branch
 # instrs = P5
 
