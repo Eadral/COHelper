@@ -102,9 +102,10 @@ P5 = [
     "jr $j",
 ]
 P6 = cal_r + load_save + cal_i + shift + xalu + branch + jump
-P7 = cal_r + load_save + cal_i + shift + xalu + branch + exception*10 #+ jump
+P7 = cal_r + load_save + cal_i + shift + xalu + branch + exception + jump
+P8 = cal_r + load_save + cal_i + shift + branch + exception + jump
 
-instrs = P7
+instrs = P8
 # instrs = cal_r + load_save*3 + cal_i + branch
 # instrs = P5
 
@@ -174,9 +175,9 @@ def generate_m(instr):
     if instr.find("b") >= 0 or instr.find("wl") >= 0 or instr.find("wr") >= 0:
         instr = replace(instr, "*", random.randint(0, num_range))
     elif instr.find("h") >= 0:
-        instr = replace(instr, "*", random.randint(0, num_range) >> 1 << 1)
+        instr = replace(instr, "*", random.randint(0, num_range))
     elif instr.find("w") >= 0:
-        instr = replace(instr, "*", random.randint(0, num_range) >> 2 << 2)
+        instr = replace(instr, "*", random.randint(0, num_range))
     else:
         raise NameError("Unexpected Instruction: {}".format(instr))
     return instr
@@ -308,5 +309,5 @@ def autotest(dir, times=0xffffffff):
 if __name__ == "__main__":
     # print(len(instrs))
     # print(generate())
-    print(autotest(r"C:\Users\Eadral\Desktop\学习\6系\计组\P7\auto_test_cases"))
+    print(autotest(r"C:\Users\Eadral\Desktop\学习\6系\计组\P8\auto_test_cases"))
 
